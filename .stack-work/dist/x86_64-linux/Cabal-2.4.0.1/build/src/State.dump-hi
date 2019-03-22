@@ -1,0 +1,53 @@
+
+==================== FINAL INTERFACE ====================
+2019-03-22 00:20:48.872513331 UTC
+
+interface turbo-0.1.0.0-APoE2v71cQ7AOwszdgAyY:State 8064
+  interface hash: 23a394a5bd40a0dec0ff73fb8a6eba1c
+  ABI hash: f227e1c5f8e2e7c608a1c879b375d969
+  export-list hash: 554ed3190b8d59b1687e3bb79c5d893e
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: d59a86fc39dabe8754ebbfb830e37f1e
+  opt_hash: 6faf2de08de32d19db9870899d88e59a
+  hpc_hash: 93b885adfe0da089cdf634904fd59f71
+  plugin_hash: ad164012d6b1e14942349d58b1132007
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+module dependencies:
+package dependencies: base-4.12.0.0* ghc-prim-0.5.3
+                      integer-gmp-1.0.2.0
+orphans: base-4.12.0.0:GHC.Float base-4.12.0.0:GHC.Base
+family instance modules: base-4.12.0.0:Control.Applicative
+                         base-4.12.0.0:Data.Functor.Const
+                         base-4.12.0.0:Data.Functor.Identity base-4.12.0.0:Data.Monoid
+                         base-4.12.0.0:Data.Semigroup.Internal base-4.12.0.0:GHC.Generics
+                         base-4.12.0.0:GHC.IO.Exception
+import  -/  base-4.12.0.0:Prelude 3c779dfd6448bdd8e234c336802c2acb
+1d9c97e568746e22ef5137b9b0c86c7b
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module State.$trModule3 State.$trModule1) -}
+55d0cde2faa90ea50ecf6c284337b21f
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS State.$trModule2) -}
+c8a824176c193324a525ccfe21efe5d1
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("State"#) -}
+991c6affda9120b6595c30131cb3bcd6
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS State.$trModule4) -}
+07ad5ae964bca87aa995c786cc2c3aca
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("turbo-0.1.0.0-APoE2v71cQ7AOwszdgAyY"#) -}
+trusted: safe
+require own pkg trusted: False
+module header:
+  Nothing
+declaration docs:
+arg docs:
+
