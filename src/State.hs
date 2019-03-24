@@ -1,4 +1,5 @@
-module State where
+module State ( State (..) ) where
+
 
 -- Each string passed in represents a line of text
---type State = Show a => [a]
+data State = State [String]

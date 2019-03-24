@@ -1,24 +1,24 @@
 module Lib
-    ( renderTurbo
+    ( Lib.render
+    , getInitialState
     ) where
 
-import UI.NCurses
+import UI.NCurses as NC
 import State
+import System.Directory
+import Update
 
 
+-- draw lines on the screen
+render :: [String] -> IO [String]
+render lns = NC.runCurses $ do
 
-renderTurbo :: [String] -> IO ()
-renderTurbo state = runCurses $ do
+    win <- NC.defaultWindow
+    NC.updateWindow win $ iterRender lns 0
+    NC.render
 
-    win <- defaultWindow
-
-    updateWindow win $ do
-        iterRender state 0
-
-    render
-    waitFor win (\ev -> 
-        ev == EventCharacter 'q' || ev == EventCharacter 'Q')
-
+    input <- getInput win
+    return $ update lns input
 
 
 -- Recursively iterate over each of the strings
@@ -26,8 +26,8 @@ renderTurbo state = runCurses $ do
 iterRender :: [String] -> Integer -> Update ()
 iterRender [] ln = return ()
 iterRender (str:strs) ln = do
-    moveCursor ln 0
-    drawString $ stripChars "\"" str
+    NC.moveCursor ln 0
+    NC.drawString $ stripChars "\"" str
     iterRender strs (ln + 1)
 
 
@@ -35,10 +35,13 @@ stripChars :: String -> String -> String
 stripChars = filter . flip notElem
 
 
-waitFor :: Window -> (Event -> Bool) -> Curses ()
-waitFor w p = loop where
-    loop = do
-        ev <- getEvent w Nothing
-        case ev of
-            Nothing -> loop
-            Just ev' -> if p ev' then return () else loop
+getInitialState :: IO [String]
+getInitialState = do
+    
+    cwd <- getCurrentDirectory
+    dirs <- getDirectoryContents cwd
+
+    let strDirs = map show dirs
+
+    return strDirs
+

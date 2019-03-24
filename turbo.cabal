@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 69e6c8f0ac35f1719636d9111cccba5fa6b07dc012521c51f2d4024f15c7ccb9
+-- hash: bf869b034aef36b9db719890b985092284a3cfc6c0d40da475c7fc33a7667f64
 
 name:           turbo
 version:        0.1.0.0
@@ -29,6 +29,8 @@ library
   exposed-modules:
       Lib
       State
+      Update
+      View
   other-modules:
       Paths_turbo
   hs-source-dirs:
