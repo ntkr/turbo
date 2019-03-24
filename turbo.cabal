@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bf869b034aef36b9db719890b985092284a3cfc6c0d40da475c7fc33a7667f64
+-- hash: 86a898b0ceb3c9f2c6e43a79a103eeb03da776b4fe89715e022f85a5220850c1
 
 name:           turbo
 version:        0.1.0.0
@@ -38,6 +38,7 @@ library
   build-depends:
       base >=4.7 && <5
     , directory
+    , filepath
     , ncurses
   default-language: Haskell2010
 
@@ -51,6 +52,7 @@ executable turbo-exe
   build-depends:
       base >=4.7 && <5
     , directory
+    , filepath
     , ncurses
     , turbo
   default-language: Haskell2010
@@ -66,6 +68,7 @@ test-suite turbo-test
   build-depends:
       base >=4.7 && <5
     , directory
+    , filepath
     , ncurses
     , turbo
   default-language: Haskell2010

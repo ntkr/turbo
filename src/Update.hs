@@ -1,6 +1,8 @@
 module Update where
 
 import UI.NCurses as NC
+import System.Directory 
+import System.FilePath
 
 
 getInput :: Window -> Curses Char
@@ -12,9 +14,14 @@ getInput window = loop where
             _ -> loop
 
 
-update :: [String] -> Char -> [String]
+update :: [String] -> Char -> IO [String]
 update lns char =
 
     case char of
         -- trim
-        't' -> tail lns
+        't' -> return $ tail lns
+
+
+upDir :: [String] -> IO [String]
+upDir state = return state
+    

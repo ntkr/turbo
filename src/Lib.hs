@@ -11,14 +11,20 @@ import Update
 
 -- draw lines on the screen
 render :: [String] -> IO [String]
-render lns = NC.runCurses $ do
+render lns = do
+    ch <- NC.runCurses $ do
 
-    win <- NC.defaultWindow
-    NC.updateWindow win $ iterRender lns 0
-    NC.render
+        win <- NC.defaultWindow
 
-    input <- getInput win
-    return $ update lns input
+        NC.updateWindow win NC.clear
+        NC.updateWindow win $ iterRender lns 0
+        NC.render
+
+        getInput win
+
+    update lns ch
+
+        
 
 
 -- Recursively iterate over each of the strings
