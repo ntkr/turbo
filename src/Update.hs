@@ -3,6 +3,7 @@ module Update where
 import UI.NCurses as NC
 import System.Directory 
 import System.FilePath
+import State
 
 
 getInput :: Window -> Curses Char
@@ -14,14 +15,24 @@ getInput window = loop where
             _ -> loop
 
 
-update :: [String] -> Char -> IO [String]
-update lns char =
+update :: State -> Char -> IO State
+update (State cwd dirs) char =
 
     case char of
         -- trim
-        't' -> return $ tail lns
+        't' -> return (State cwd (tail dirs))
+        'u' -> upDir (State cwd dirs)
+    
 
 
-upDir :: [String] -> IO [String]
-upDir state = return state
+upDir :: State -> IO State
+upDir (State cwd dirs) = do 
+    let newCwd = takeDirectory cwd
+    newDirs <- getDirectoryContents newCwd
+
+    let newStrDirs = map show newDirs
+    
+    return (State newCwd newStrDirs)
+    
+    
     

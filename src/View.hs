@@ -18,8 +18,8 @@ data Pad = Pad
     deriving (Show)
 
 
-generateView :: [String] -> View
-generateView lns = View lns (Pad 0 0)
+generateView :: State -> View
+generateView (State cwd dirs)  = View dirs (Pad 0 0)
 
 
 -- Convert the view into a 2d charmap

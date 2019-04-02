@@ -10,20 +10,22 @@ import Update
 
 
 -- draw lines on the screen
-render :: [String] -> IO [String]
-render lns = do
-    ch <- NC.runCurses $ do
+--render :: [String] -> IO [String]
+--render lns = do
+--    ch <- NC.runCurses $ do
+--
+--        win <- NC.defaultWindow
+--
+--        NC.updateWindow win NC.clear
+--        NC.updateWindow win $ iterRender lns 0
+--        NC.render
+--
+--        getInput win
+--
+--    update lns ch
 
-        win <- NC.defaultWindow
-
-        NC.updateWindow win NC.clear
-        NC.updateWindow win $ iterRender lns 0
-        NC.render
-
-        getInput win
-
-    update lns ch
-
+render :: [String] -> Update ()
+render s = iterRender s 0
         
 
 
@@ -41,7 +43,7 @@ stripChars :: String -> String -> String
 stripChars = filter . flip notElem
 
 
-getInitialState :: IO [String]
+getInitialState :: IO State
 getInitialState = do
     
     cwd <- getCurrentDirectory
@@ -49,5 +51,5 @@ getInitialState = do
 
     let strDirs = map show dirs
 
-    return strDirs
+    return (State cwd strDirs)
 

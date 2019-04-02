@@ -24,6 +24,7 @@ dependencies:
 - ncurses
 - directory
 - filepath
+- transformers
 
 library:
   source-dirs: src
