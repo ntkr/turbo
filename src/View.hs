@@ -5,12 +5,18 @@ module View
     ) where
 
 import State
+import UI.NCurses as NC
 
 
 data View = View 
-    [String] -- lines of text
-    Pad
+    [Text] -- lines of text
+    View.Pad
     deriving (Show)
+
+
+data Text = Text NC.Color [String]
+    deriving (Show)
+
 
 data Pad = Pad 
     Integer -- pad left
@@ -19,7 +25,13 @@ data Pad = Pad
 
 
 generateView :: State -> View
-generateView (State cwd dirs)  = View dirs (Pad 0 0)
+generateView (State cwd dirs) = 
+
+    let 
+        lns = map (\x -> Text (NC.Color 50) x) dirs
+    
+    in
+        View lns (Pad 0 0)
 
 
 -- Convert the view into a 2d charmap

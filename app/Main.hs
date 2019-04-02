@@ -32,6 +32,11 @@ run state = do
     
     -- render onto screen
     win <- NC.defaultWindow
+
+    -- TODO wrap all these NC.updateWindow calls up...
+    (h, w) <- NC.updateWindow win $ NC.windowSize
+    NC.updateWindow win $ resizeWindow h w
+
     NC.updateWindow win NC.clear
     NC.updateWindow win $ Lib.render charmap
     NC.render
