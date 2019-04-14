@@ -5,38 +5,38 @@ module Lib
 
 import UI.NCurses as NC
 import State
+import View
+import Palette
 import System.Directory
 import Update
 
 
--- draw lines on the screen
---render :: [String] -> IO [String]
---render lns = do
---    ch <- NC.runCurses $ do
---
---        win <- NC.defaultWindow
---
---        NC.updateWindow win NC.clear
---        NC.updateWindow win $ iterRender lns 0
---        NC.render
---
---        getInput win
---
---    update lns ch
+render :: NC.Window -> NC.Window -> Palette -> State -> Curses ()
+render pathWin dirsWin palette (State cwd dirs) = do
+    renderPath pathWin palette cwd
+    renderDirs dirsWin palette dirs
+    NC.render
 
-render :: [String] -> Update ()
-render s = iterRender s 0
-        
 
+renderPath :: NC.Window -> Palette -> String -> Curses ()
+renderPath win (Palette red blue) path = NC.updateWindow win $ do
+    NC.setColor red
+    NC.drawString path
+
+
+renderDirs :: NC.Window -> Palette -> [String] -> Curses ()
+renderDirs win (Palette red blue) dirs = NC.updateWindow win $ do
+    NC.setColor blue
+    iterRenderDirs dirs 0
 
 -- Recursively iterate over each of the strings
 -- in `State` and write each on a new line
-iterRender :: [String] -> Integer -> Update ()
-iterRender [] ln = return ()
-iterRender (str:strs) ln = do
+iterRenderDirs :: [String] -> Integer -> Update ()
+iterRenderDirs [] ln = return ()
+iterRenderDirs (str:strs) ln = do
     NC.moveCursor ln 0
     NC.drawString $ stripChars "\"" str
-    iterRender strs (ln + 1)
+    iterRenderDirs strs (ln + 1)
 
 
 stripChars :: String -> String -> String

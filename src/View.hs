@@ -1,7 +1,7 @@
 module View 
     ( View (..)
+    , Text (..)
     , generateView
-    , plotView
     ) where
 
 import State
@@ -9,8 +9,13 @@ import UI.NCurses as NC
 
 
 data View = View 
+    [ViewConfig]
     [Text] -- lines of text
     View.Pad
+    deriving (Show)
+
+
+data ViewConfig = ViewConfig
     deriving (Show)
 
 
@@ -28,12 +33,9 @@ generateView :: State -> View
 generateView (State cwd dirs) = 
 
     let 
-        lns = map (\x -> Text (NC.Color 50) x) dirs
+        lns = map (\x -> Text (NC.Color 50) [x]) dirs
     
     in
-        View lns (Pad 0 0)
+        View [] lns (Pad 0 0)
 
 
--- Convert the view into a 2d charmap
-plotView :: View -> [String]
-plotView (View lns pad) = lns

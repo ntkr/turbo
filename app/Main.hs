@@ -4,19 +4,21 @@ import Control.Monad
 import Lib
 import State
 import View
+import Palette 
 import Debug.Trace
 import UI.NCurses as NC
 import Update
 import Control.Monad.IO.Class
 
 
-
 main :: IO ()
 main = do
+
 
     -- get current state
     state <- getInitialState
 
+    -- main loop
     NC.runCurses $ run state
 
 
@@ -24,25 +26,28 @@ main = do
 run :: State -> Curses ()
 run state = do
 
-    -- generate view from state
-    let view = generateView state
 
-    -- plot view into charmap
-    let charmap = plotView view
-    
-    -- render onto screen
-    win <- NC.defaultWindow
+    -- make some colors
+    cidRed <- NC.newColorID NC.ColorRed NC.ColorBlack 1
+    cidBlue <- NC.newColorID NC.ColorBlue NC.ColorBlack 2
+
+    let palette = Palette cidRed cidBlue
+
+
+    -- main window
+    mainWin <- NC.defaultWindow
+    dirsWin <- NC.newWindow 0 0 1 0
+    pathWin <- NC.newWindow 1 0 0 0
 
     -- TODO wrap all these NC.updateWindow calls up...
-    (h, w) <- NC.updateWindow win $ NC.windowSize
-    NC.updateWindow win $ resizeWindow h w
+    (h, w) <- NC.updateWindow mainWin $ NC.windowSize
+    NC.updateWindow mainWin $ resizeWindow 100 100
 
-    NC.updateWindow win NC.clear
-    NC.updateWindow win $ Lib.render charmap
-    NC.render
+    Lib.render pathWin dirsWin palette state
+
 
     -- await input
-    ch <- getInput win
+    ch <- getInput dirsWin
 
     nextState <- liftIO $ update state ch
 

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 312111ab8fad3db6c18f3c0e608a04d5a938c60f07e018ee1b2d63864e6e5349
+-- hash: aa8ef9b23a6f8c40f696cc64ceb50cf908bdb16c47415d6c93c534d3874b4d99
 
 name:           turbo
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Palette
       State
       Update
       View
